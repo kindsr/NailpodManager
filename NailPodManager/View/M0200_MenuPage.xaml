@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="NailPodManager.View.M0200_MenuPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:viewmodel="clr-namespace:NailPodManager.ViewModel"
+             Title="{Binding Title}"
+             ios:Page.UseSafeArea="True"
+             mc:Ignorable="d">
+
+    <d:ContentPage.BindingContext>
+        <viewmodel:M0200_MenuViewModel />
+    </d:ContentPage.BindingContext>
+
+    <Grid
+        ColumnSpacing="8"
+        CompressedLayout.IsHeadless="True"
+        RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView ItemsSource="{Binding Nailpods}"
+                  Grid.ColumnSpan="2"
+                  SeparatorColor="Red"
+                  
+                  ItemSelected="ListView_ItemSelected"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame
+                            InputTransparent="True"
+                            Margin="10,5" Padding="0"
+                            BackgroundColor="White" CornerRadius="10"
+                            HeightRequest="125" IsClippedToBounds="True"
+                            Visual="Material">
+                            <Grid Padding="0" ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="125" />
+                                </Grid.ColumnDefinitions>
+                                <!--<Image Aspect="AspectFill" Source="{Binding Image}" />-->
+                                <StackLayout
+                                    Grid.Column="0" Padding="10"
+                                    VerticalOptions="Center">
+                                    <Label FontSize="Large" Text="{Binding MachineId}" />
+                                    <Label FontSize="Medium" Text="{Binding IpAddr}" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+            Margin="8"
+            Command="{Binding GetNailpodsCommand}"
+            Style="{StaticResource ButtonOutline}"
+            IsEnabled="{Binding IsNotBusy}"
+            Text="Search" />
+
+        <!--<Button
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="1"
+            Margin="8"
+            Command="{Binding GetClosestCommand}"
+            Style="{StaticResource ButtonOutline}"
+            IsEnabled="{Binding IsNotBusy}"
+            Text="Find Closest" />-->
+
+
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
+</ContentPage>

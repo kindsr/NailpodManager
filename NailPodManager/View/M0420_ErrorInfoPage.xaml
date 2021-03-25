@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="NailPodManager.View.M0420_ErrorInfoPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:imagecircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodel="clr-namespace:NailPodManager.ViewModel"
+             Title="{Binding Title}"
+             ios:Page.UseSafeArea="True"
+             mc:Ignorable="d">
+
+    <d:ContentPage.BindingContext>
+        <viewmodel:M0420_ErrorInfoViewModel />
+    </d:ContentPage.BindingContext>
+
+    <ListView ItemsSource="{Binding ErrorInfos}"
+                Grid.ColumnSpan="2"
+                SeparatorColor="Red"
+                SeparatorVisibility="None"
+                HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Frame
+                        InputTransparent="True"
+                        Margin="10,5" Padding="0"
+                        BackgroundColor="White" CornerRadius="10"
+                        HeightRequest="380" IsClippedToBounds="True"
+                        Visual="Material">
+                        <Grid Padding="0" ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <!--<Image Aspect="AspectFill" Source="{Binding Image}" />-->
+                            <StackLayout
+                                Grid.Column="0" Grid.ColumnSpan="2" Padding="10"
+                                VerticalOptions="Center">
+                                <Label FontSize="Medium" Text="SEQ       :" />
+                                <Label FontSize="Medium" Text="{Binding Seq}" />
+                                <Label FontSize="Medium" Text="오류코드  :" />
+                                <Label FontSize="Medium" Text="{Binding ErrorCd}" />
+                                <Label FontSize="Medium" Text="오류내용  :" />
+                                <Label FontSize="Medium" Text="{Binding ErrorMsg}" />
+                                <Label FontSize="Medium" Text="조치여부  :" />
+                                <Label FontSize="Medium" Text="{Binding FixYn}" />
+                                <Label FontSize="Medium" Text="등록일자  :" />
+                                <Label FontSize="Medium" Text="{Binding RegDt}" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
